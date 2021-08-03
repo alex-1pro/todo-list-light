@@ -1,3 +1,14 @@
+div.c-todopage{
+    width: 500px;
+    margin: 20px auto;
+}
+
+ul.ul-todolist{
+    list-style-type: none;
+
+}
+
+
 p.coun-tasks{
     font-weight: bold;
 }
