@@ -26,37 +26,43 @@ function TodoPage() {
 
     }
 
-    function removeTask(idNum){
+    function removeTask(idNum) {
         let tempTasks = [...tasks];
-        tempTasks.splice(idNum,1);
+        tempTasks.splice(idNum, 1);
         setTasks(tempTasks);
     }
 
+  
+  
+    function handleKeyDown(e) {
+        if (e.key === 'Enter') {
+          console.log('do validate');
+          addToList();
+        }
+      }
 
-    // function  incompleteTasks(){
-    //     const count = tasks.filter(t => t.done === false);
-    //     setTaskCount(count.length);
-    // }
     const incompleteTasks = tasks.filter(t => t.done === false).length;
 
     const tasksList = tasks.map((tsk, index) => (
-        <TaskComponent tasks={tasks} task={tsk} idNum={index} onChecked={taskDone}  onRemove={removeTask}/>)
+        <TaskComponent tasks={tasks} task={tsk} idNum={index} onChecked={taskDone} onRemove={removeTask} />)
     )
-   
+
     return (
         <div className="c-todopage">
             <Container >
                 <h1>Todo List</h1>
                 <Row>
-                    <input type="text" value={taskText} placeholder="Enter new Task" onChange={e => setTaskText(e.target.value)} />
+                <input type="text" value={taskText} placeholder="Enter new Task" onChange={e => setTaskText(e.target.value)} onKeyDown={handleKeyDown}/>
+                    {/* <input type="text" value={taskText} placeholder="Enter new Task" onChange={e => setTaskText(e.target.value)} /> */}
 
-                    <button onClick={addToList}>New Task</button>
+                    {/* <button onClick={addToList}>New Task</button> */}
                 </Row>
                 {/* <ul className="ul-todolist"> */}
-                    {tasksList}
+                {tasksList}
                 {/* </ul> */}
                 <p className="coun-tasks">{incompleteTasks} items left</p>
             </Container>
+         
         </div>
     );
 }
