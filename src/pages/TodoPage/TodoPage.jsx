@@ -8,44 +8,42 @@ import { Container, Row } from 'react-bootstrap';
 function TodoPage() {
     const [tasks, setTasks] = useState([]);
     const [taskText, setTaskText] = useState("");
-    const [taskCount,setTaskCount] =useState(0);
+    const [taskCount, setTaskCount] = useState(0);
     function addToList() {
-        const newTask = new TaskModel(taskText, false);
         if (taskText) {
-           
+            const newTask = new TaskModel(taskText, false);
             setTasks(tasks.concat(newTask));
-            let count=0;
-            tasks.forEach(tsk=>{
-                if(!tsk.done){
-                    count+=1;
-                }
-            })
-            setTaskCount(count);
-        }        
-    }
-    
-   function taskDone(idNum){
-       console.log(idNum);
-       let tempTasks = [...tasks];
-       tempTasks[idNum].done=! tempTasks[idNum].done;
-       setTasks(tempTasks);
-    
+            setTaskText("");
+            
+        }
     }
 
-
+    function taskDone(idNum) {
+        console.log(idNum);
+        let tempTasks = [...tasks];
+        tempTasks[idNum].done = !tempTasks[idNum].done;
+        setTasks(tempTasks);
+    
+    }
+    // function  incompleteTasks(){
+    //     const count = tasks.filter(t => t.done === false);
+    //     setTaskCount(count.length);
+    // }
+    const incompleteTasks=tasks.filter(t => t.done === false).length;
+        console.log(tasks.filter(t => t.done === false).length);
     const tasksList = tasks.map((tsk, index) => (
-        <TaskComponent tasks={tasks} task={tsk} idNum={index} onChecked = {taskDone} setTasks={setTasks} />)
+        <TaskComponent tasks={tasks} task={tsk} idNum={index} onChecked={taskDone} setTasks={setTasks} />)
     )
     return (
         <Container >
             <h1>Todo List</h1>
             <Row>
-            <input type="text" value={taskText} placeholder="Enter new Task" onChange={e => setTaskText(e.target.value)} />
-           
-            <button onClick={addToList}>New Task</button>
+                <input type="text" value={taskText} placeholder="Enter new Task" onChange={e => setTaskText(e.target.value)} />
+
+                <button onClick={addToList}>New Task</button>
             </Row>
             {tasksList}
-            <p className="coun-tasks">{taskCount} items left</p>
+            <p className="coun-tasks">{incompleteTasks} items left</p>
         </Container>
     );
 }
