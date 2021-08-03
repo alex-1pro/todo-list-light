@@ -1,6 +1,17 @@
+body{
+    background-color:#68829E;
+}
 div.c-todopage{
     width: 500px;
     margin: 20px auto;
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+}
+div.c-todopage h1{
+    color:#AEBD38;
+    text-decoration: underline;
+    text-align: center;
 }
 
 ul.ul-todolist{
@@ -11,4 +22,31 @@ ul.ul-todolist{
 
 p.coun-tasks{
     font-weight: bold;
+    color:#598234;
+    /* text-decoration: underline #68829E; */
+   
+}
+div.my-btn {
+    width: 80px;
+    height: auto;
+    background-color:#AEBD38;
+    border: solid #598234;
+    text-align: center;
+    margin: 5px;
+    border-radius: 10px;
+}
+.m-press{
+    background-color:#598234;
+    color: white;
+    width: 80px;
+    height: auto;
+   
+    border: solid #AEBD38;
+    text-align: center;
+    margin: 5px;
+    border-radius: 10px;
+}
+input.input-task{
+    border-radius: 10px;
+    border-color:#505160;
 }
