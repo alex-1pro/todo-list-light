@@ -10,7 +10,7 @@ div>div.task-col{
     margin: 5px;
 }
 
-span.cont-trash{
+div.cont-trash{
     cursor: pointer;
 }
 div.c-task-row{

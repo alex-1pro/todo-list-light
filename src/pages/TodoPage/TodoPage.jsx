@@ -11,7 +11,7 @@ function TodoPage() {
     const [tasks, setTasks] = useState([]);
 
     const [taskText, setTaskText] = useState("");
-    const [filteredTasks, setFilteredTasks] = useState([]);
+  //  const [filteredTasks, setFilteredTasks] = useState([]);
 
     const [filterType, setFilterType] = useState("All");
 
@@ -29,15 +29,39 @@ function TodoPage() {
         }
     }
 
-    function taskDone(idNum) {
-        console.log(idNum);
-        let tempTasks = [...tasks];
-        tempTasks[idNum].done = !tempTasks[idNum].done;
-        setTasks(tempTasks);
+    // function taskDone(idNum) {
+    //     // console.log(idNum);
 
+    //     let tempTasks = [...tasks];
+    //     tempTasks[idNum].done = !tempTasks[idNum].done;
+    //     console.log(tempTasks);
+    //     setTasks(tempTasks);
+
+    // }
+
+    // function taskDone(idNum) {
+    //     const colnedTask = { ...tasks[idNum] };
+    //     colnedTask.done = !colnedTask.done;
+    //     const clonedTasks = [...tasks];
+    //     clonedTasks[idNum] = colnedTask;
+    //     setTasks(clonedTasks);
+      
+
+    // }
+    function taskDone(task) {
+        const idNum=tasks.indexOf(task);
+        const colnedTask = { ...tasks[idNum] };
+        colnedTask.done = !colnedTask.done;
+        const clonedTasks = [...tasks];
+        clonedTasks[idNum] = colnedTask;
+        setTasks(clonedTasks);
     }
 
-    function removeTask(idNum) {
+
+
+
+    function removeTask(task) {
+        const idNum=tasks.indexOf(task);
         let tempTasks = [...tasks];
         if (tempTasks[idNum].done === false) {
 
@@ -71,42 +95,40 @@ function TodoPage() {
     //let filterType ="All"
 
     //function for filter tasks 
+
+
+
     function filterTask() {
-        if (filterType === "All") {
+        if (filterType === "Completed") {
+            // const doneTasks = tasks.filter(t => t.done);
+            // return doneTasks.map((tsk, index) => (
+            // <TaskComponent tasks={doneTasks} task={tsk} idNum={index} onChecked={taskDone} onRemove={removeTask} />)
+            // )
+            return tasks.filter(tsk => tsk.done).map((tsk,index) => <TaskComponent tasks={tasks} task={tsk} idNum={index} onChecked={taskDone} onRemove={removeTask} />)
+
+        } else if (filterType === "Active") {
+            // const active = tasks.filter(t => !t.done);
+            // console.log(active);
+
+            // return active.map((tsk, index) => (
+                // <TaskComponent tasks={active} task={tsk} idNum={index} onChecked={taskDone} onRemove={removeTask} />)
+            // )
+            return tasks.filter(tsk =>!tsk.done).map((tsk,index) => <TaskComponent tasks={tasks} task={tsk} idNum={index} onChecked={taskDone} onRemove={removeTask} />)
+
+
+        } else {
+
             return tasks.map((tsk, index) => (
                 <TaskComponent tasks={tasks} task={tsk} idNum={index} onChecked={taskDone} onRemove={removeTask} />)
             )
-            // setFilteredTasks(
-            // tasks.map((tsk, index) => (
-            // <TaskComponent tasks={tasks} task={tsk} idNum={index} onChecked={taskDone} onRemove={removeTask} />)
-            // )
-
-            // );
-        } else if (filterType === "Active") {
-            const active = tasks.filter(t => t.done === false);
-            return active.map((tsk, index) => (
-                <TaskComponent tasks={active} task={tsk} idNum={index} onChecked={taskDone} onRemove={removeTask} />)
-            )
-            // setFilteredTasks(
-            // active.map((tsk, index) => (
-            // <TaskComponent tasks={active} task={tsk} idNum={index} onChecked={taskDone} onRemove={removeTask} />)
-            // )
-            // );
-        } else {
-            const doneTasks = tasks.filter(t => t.done);
-            return doneTasks.map((tsk, index) => (
-                <TaskComponent tasks={doneTasks} task={tsk} idNum={index} onChecked={taskDone} onRemove={removeTask} />)
-            )
-            // setFilteredTasks(
-            // doneTasks.map((tsk, index) => (
-            // <TaskComponent tasks={doneTasks} task={tsk} idNum={index} onChecked={taskDone} onRemove={removeTask} />)
-            // )
-            // )
         }
 
     }
 
     const tasksList = filterTask();
+
+
+
 
 
 
@@ -121,16 +143,13 @@ function TodoPage() {
                     <input className="input-task" type="text" value={taskText} placeholder="Enter new Task" onChange={e => setTaskText(e.target.value)} onKeyDown={handleKeyDown} />
 
                     <Col>
-                        <div className={filterType === "All" ? "m-press" : "" + " my-btn "} onClick={() => {
-                            setFilterType("All");
+                        <div className={filterType === "All" ? "m-press" : "" + " my-btn "} onClick={() => setFilterType("All")}
 
-
-                        }
-                        }>All</div>
+                        >All</div>
 
                     </Col>
                     <Col>
-                        <div className={filterType === "Active" ? "m-press" : "" + " my-btn "} onClick={(filterType) => setFilterType("Active")}>Active</div>
+                        <div className={filterType === "Active" ? "m-press" : "" + " my-btn "} onClick={() => setFilterType("Active")}>Active</div>
                     </Col>
                     <Col>
                         <div className={filterType === "Completed" ? "m-press" : "" + " my-btn "} onClick={() => setFilterType("Completed")}>Completed</div>
